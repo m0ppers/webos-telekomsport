@@ -115,6 +115,7 @@ module.exports = {
     runtimeChunk: true
   },
   plugins: [
+    // enact variables...no idea :S
     new webpack.DefinePlugin({
       'ILIB_BASE_PATH': '""',
       'ILIB_CACHE_ID': '1',
