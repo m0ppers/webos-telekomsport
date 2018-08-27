@@ -1,0 +1,23 @@
+{
+  "name": "webos-telekomsport-service",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npm run build-ts",
+    "test": "jest --forceExit --coverage --verbose",
+    "watch-test": "npm run test -- --watchAll",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^10.9.2",
+    "typescript": "^3.0.1"
+  },
+  "dependencies": {
+    "cross-fetch": "^2.2.2",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}

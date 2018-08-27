@@ -1,0 +1,10 @@
+{
+  "id": "koeln.mop.telekomsport",
+  "version": "0.0.1",
+  "vendor": "Andreas Streichardt <andreas@mop.koeln>",
+  "type": "web",
+  "main": "index.html",
+  "title": "Telekomsport (unofficial)",
+  "icon": "icon.png",
+  "largeIcon": "largeIcon.png"
+}

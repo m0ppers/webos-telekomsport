@@ -1,0 +1,16 @@
+{
+  "name": "koeln.mop.telekomsport.comm",
+  "version": "1.0.0",
+  "description": "Telekomsport Comm Service",
+  "main": "service.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "BSD",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "node-fetch": "^1.7.3",
+    "webos-telekomsport-service": "../service"
+  }
+}

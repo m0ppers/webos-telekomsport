@@ -1,0 +1,9 @@
+{
+  "id": "koeln.mop.telekomsport.comm",
+  "description": "Telekomsport Comm Service",
+  "services": [
+    {
+      "name": "koeln.mop.telekomsport.comm"
+    }
+  ]
+}

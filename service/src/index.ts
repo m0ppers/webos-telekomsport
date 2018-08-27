@@ -1,0 +1,1 @@
+export { TelekomSportService } from './service';
