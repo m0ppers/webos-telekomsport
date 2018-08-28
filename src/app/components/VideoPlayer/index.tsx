@@ -35,7 +35,6 @@ export class VideoPlayer extends React.Component<VideoPlayer.Props> {
         };
         // instantiate Video.js
         this.player = videojs(this.video.current, props, function onPlayerReady() {
-            console.log('onPlayerReady')
         });
     }
 

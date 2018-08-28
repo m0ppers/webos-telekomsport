@@ -1,11 +1,11 @@
 require('isomorphic-fetch');
 
-// var base_url = "https://www.telekomsport.de/api/v1"
+var programmUrl = "https://www.telekomsport.de/api/v2/epg/64";
+var eventUrl = "https://www.telekomsport.de/api/v2/event/";
 var oauthUrl = "https://accounts.login.idm.telekom.com/oauth2/tokens"
 var jwtUrl = "https://www.telekomsport.de/service/auth/app/login/jwt"
 // // const heartbeat_url = "https://www.telekomsport.de/service/heartbeat"
 var streamUrl = "https://www.telekomsport.de/service/player/streamAccess"
-// // const main_page = "/navigation"
 
 export class TelekomSportService {
     public auth(username: string, password: string): Promise<any> {
@@ -55,19 +55,6 @@ export class TelekomSportService {
                 }
             });
         });
-
-            // message.respond({
-            //     returnValue: true,
-            //     message: token,
-            // });
-        // }, (e) => {
-
-            // message.respond({
-            //     returnValue: false,
-            //     errorText: e,
-            //     errorCode: 1
-            // });
-        // });
     }
 
     public getVideoStream(jwt: string, videoId: number) {
@@ -90,6 +77,22 @@ export class TelekomSportService {
         .then(function() {
             return fetch(playlistUrl + '?hdnea= ' + jwt)
             .then(streamResponse => streamResponse.text());
+        })
+    }
+
+    public getNavigation() {
+        return Promise.resolve()
+        .then(function() {
+            return fetch(programmUrl)
+            .then(streamResponse => streamResponse.json());
+        })
+    }
+
+    public getEventVideos(eventId: number) {
+        return Promise.resolve()
+        .then(function() {
+            return fetch(eventUrl + eventId)
+            .then(streamResponse => streamResponse.json());
         })
     }
 }

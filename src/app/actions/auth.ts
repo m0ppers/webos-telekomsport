@@ -20,7 +20,7 @@ export namespace AuthActions {
             telekomClient('auth', [username, password])
             .then((payload: LoginPayload) => {
                 dispatch(completeLogin(payload));
-                history.push('/video/106867');
+                history.push('/');
             }, (e: Error) => {
                 dispatch(failLogin(e));
             });

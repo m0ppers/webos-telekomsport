@@ -26,7 +26,6 @@ const telekomWebOSClient = function(method: string, args: any[]): Promise<any> {
                 args
             },
             onSuccess: function(inResponse: any) {
-                console.log('response', inResponse)
                 if (inResponse.returnValue) {
                     resolve(inResponse.result);
                 } else {

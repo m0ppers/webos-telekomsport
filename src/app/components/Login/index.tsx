@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators, Dispatch } from 'redux';
 import { AuthActions } from 'app/actions';
 import { RootState } from 'app/reducers';
+import Input from '@enact/moonstone/Input';
+
+type StupidWebOSInputEvent = any;
 
 export namespace Login {
     export interface Props {
@@ -37,17 +40,17 @@ export class Login extends React.Component<Login.Props, Login.State> {
         event.preventDefault();
     }
 
-    changePassword(event: React.ChangeEvent<HTMLInputElement>) {
+    changePassword(event: StupidWebOSInputEvent) {
         this.setState({
             ...this.state,
-            password: event.target.value,
+            password: event.value,
         });
     }
 
-    changeEmail(event: React.ChangeEvent<HTMLInputElement>) {
+    changeEmail(event: StupidWebOSInputEvent) {
         this.setState({
             ...this.state,
-            email: event.target.value,
+            email: event.value,
         });
     }
 
@@ -55,8 +58,8 @@ export class Login extends React.Component<Login.Props, Login.State> {
         return (
             <div>
                 <form>
-                    Email: <input type="email" value={this.state.email} onChange={this.changeEmail.bind(this)}></input>
-                    Password: <input type="password" value={this.state.password} onChange={this.changePassword.bind(this)}></input>
+                    Email: <Input type="email" value={this.state.email} onChange={this.changeEmail.bind(this)}></Input>
+                    Password: <Input type="password" value={this.state.password} onChange={this.changePassword.bind(this)}></Input>
                     <button onClick={this.login.bind(this)}>Login</button>
                 </form>
             </div>

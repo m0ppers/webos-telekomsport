@@ -37,7 +37,6 @@ export class TelekomVideo extends React.Component<TelekomVideo.Props, TelekomVid
 
         telekomClient('getVideoStream', [this.props.jwt, this.props.match.params.videoId])
         .then((params) => {
-            console.log(params.data['stream-access'][0]);
             const playlistUrl = 'https:' + params.data['stream-access'][1]; // + '?hdnea=' + this.props.jwt;
             fetch(playlistUrl)
             .then((response) => response.text())
@@ -57,7 +56,6 @@ export class TelekomVideo extends React.Component<TelekomVideo.Props, TelekomVid
     }
 
     render() {
-        console.log(this.state);
         let element;
         if (!this.state.url) {
             element = <div>LOADING</div>
