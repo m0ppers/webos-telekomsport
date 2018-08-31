@@ -45,6 +45,14 @@ export class Event extends React.Component<Event.Props, Event.State> {
                                 image: 'https://www.telekomsport.de' + (video.images.editoral || video.images.fallback),
                             }
                         }))
+                    } else if (groupElement.type == 'player') {
+                        videos = videos.concat(groupElement.data.map((video: any) => {
+                            return {
+                                id: video.videoID,
+                                title: video.title,
+                                image: 'https://www.telekomsport.de' + (video.images.editoral || video.images.fallback),
+                            }
+                        }))
                     }
                     return videos;
                 }, videos);
