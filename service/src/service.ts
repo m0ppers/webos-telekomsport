@@ -8,9 +8,11 @@ var jwtUrl = "https://www.telekomsport.de/service/auth/app/login/jwt"
 var streamUrl = "https://www.telekomsport.de/service/player/streamAccess"
 
 export class TelekomSportService {
-    public auth(username: string, password: string): Promise<any> {
-        var data = { "claims": "{'id_token':{'urn:telekom.com:all':null}}", "client_id": "10LIVESAM30000004901TSMAPP00000000000000", "grant_type": "password", "scope": "tsm offline_access", "username": username, "password": password }
-    
+    private internalAuth(authProperties: any) {
+        let data: any = { "claims": "{'id_token':{'urn:telekom.com:all':null}}", "client_id": "10LIVESAM30000004901TSMAPP00000000000000", "scope": "tsm offline_access" };
+        for (var key in authProperties) {
+            data[key] = authProperties[key];
+        }
         var urlEncoded = Object.keys(data).map(key => {
             // @ts-ignore
             var value: string = data[key];
@@ -28,33 +30,54 @@ export class TelekomSportService {
             })
             .then((jsonResult) => {
                 if (jsonResult['access_token']) {
+                    const refreshToken = jsonResult['refresh_token'];
                     return fetch(jwtUrl, {
                         body: 'token=' + jsonResult['access_token'],
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         }
+                    })
+                    .then((jwtResponse: any) => {
+                        return jwtResponse.json();
+                    })
+                    // @ts-ignore
+                    .then((jwtResult: any) => {
+                        if (typeof jwtResult == 'object' && jwtResult['status'] && jwtResult['status'] == "success" && typeof jwtResult['data'] == 'object' && jwtResult['data']['token']) {
+                            return {
+                                refreshToken, 
+                                jwt: jwtResult['data']['token'],
+                                name: jwtResult['data']['display_name'],
+                            }
+                        } else {
+                            return Promise.reject('Invalid jwt result: ' + JSON.stringify(jwtResult));
+                        }
                     });
                 } else {
                     return Promise.reject('access_token not in oauthresult: ' + JSON.stringify(jsonResult));
                 }
             })
-            .then((jwtResponse) => {
-                // @ts-ignore
-                return jwtResponse.json();
-            })
-            // @ts-ignore FICK DICH
-            .then((jwtResult) => {
-                if (typeof jwtResult == 'object' && jwtResult['status'] && jwtResult['status'] == "success" && typeof jwtResult['data'] == 'object' && jwtResult['data']['token']) {
-                    return {
-                        jwt: jwtResult['data']['token'],
-                        name: jwtResult['data']['display_name'],
-                    }
-                } else {
-                    return Promise.reject('Invalid jwt result: ' + JSON.stringify(jwtResult));
-                }
-            });
+
         });
+    }
+
+    public refreshAuth(refreshToken: string): Promise<any> {
+        const authProperties = {
+            "grant_type": "refresh_token",
+            "refresh_token": refreshToken,
+        };
+    
+        return this.internalAuth(authProperties);
+    }
+
+    public passwordAuth(username: string, password: string): Promise<any> {
+        const authProperties = {
+            "grant_type": "password",
+            "username": username,
+            "password": password,
+        };
+    
+        return this.internalAuth(authProperties);
     }
 
     public getVideoStream(jwt: string, videoId: number) {

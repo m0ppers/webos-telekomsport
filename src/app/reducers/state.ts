@@ -11,6 +11,7 @@ export namespace RootState {
     loggingIn: boolean;
     name?: string;
     jwt?: string;
+    refreshToken?: string;
     authenticated: boolean;
   }
 }

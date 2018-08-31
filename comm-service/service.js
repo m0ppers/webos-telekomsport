@@ -24,7 +24,7 @@ Object.getOwnPropertyNames(TelekomSportService.prototype).filter(function(prop) 
 .forEach(function(prop) {
 	service.register(prop, function(message) {
 		var fn = telekomSportService[prop];
-		fn.apply(service, message.payload.args)
+		fn.apply(telekomSportService, message.payload.args)
         .then(function(result) {
 			message.respond({
 				returnValue: true,

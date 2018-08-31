@@ -9,7 +9,7 @@ type StupidWebOSInputEvent = any;
 
 export namespace Login {
     export interface Props {
-        login: Function,
+        passwordLogin: Function,
     }
 
     export interface State {
@@ -22,9 +22,9 @@ export namespace Login {
     (state: RootState): object => {
       return {};
     },
-    (dispatch: Dispatch): Pick<Login.Props, 'login'> => ({
-      login: bindActionCreators(AuthActions.login, dispatch)
-  })
+    (dispatch: Dispatch): Pick<Login.Props, 'passwordLogin'> => ({
+        passwordLogin: bindActionCreators(AuthActions.passwordLogin, dispatch)
+    })
 )
 export class Login extends React.Component<Login.Props, Login.State> {
     constructor(props: Login.Props) {
@@ -36,7 +36,7 @@ export class Login extends React.Component<Login.Props, Login.State> {
     }
 
     login(event: React.MouseEvent<HTMLButtonElement>) {
-        this.props.login(this.state.email, this.state.password);
+        this.props.passwordLogin(this.state.email, this.state.password);
         event.preventDefault();
     }
 

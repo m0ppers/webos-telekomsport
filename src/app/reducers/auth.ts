@@ -6,6 +6,10 @@ const initialState: RootState.Auth = {
     loggingIn: false,
     authenticated: false,
 };
+const refreshToken = localStorage.getItem('refreshToken') || null;
+if (refreshToken) {
+    initialState.refreshToken = refreshToken;
+}
 
 export const authReducer = handleActions<RootState.Auth, any>({
     [AuthActions.Type.START_LOGIN]: (state) => {
@@ -15,18 +19,19 @@ export const authReducer = handleActions<RootState.Auth, any>({
         }
     },
     [AuthActions.Type.COMPLETE_LOGIN]: (state, action) => {
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
         return {
             ...state,
             ...action.payload,
             authenticated: true,
             loggingIn: false,
+            refreshToken: action.payload.refreshToken,
         }
     },
     [AuthActions.Type.FAIL_LOGIN]: (state, action) => {
         return {
-            ...state,
             error: action.payload,
-            authenticated: true,
+            authenticated: false,
             loggingIn: false,
         }
     },
