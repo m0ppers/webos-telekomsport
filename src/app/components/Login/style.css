@@ -1,0 +1,7 @@
+.row {
+    padding: 20px;
+}
+
+.row > label {
+    display: block;
+}

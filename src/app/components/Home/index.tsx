@@ -6,10 +6,6 @@ import { history } from 'app/utils/history';
 import { VirtualGridList } from '@enact/ui/VirtualList';
 import ri from '@enact/ui/resolution';
 
-const styles = require('style-loader!./peng.less');
-
-console.log('stylung', styles);
-
 export interface ProgramEntry {
     id: number;
     title: string;
@@ -93,7 +89,7 @@ export class Home extends React.Component<Home.Props, Home.State> {
                         itemRenderer={this.renderItem.bind(this)}
                         itemSize={{
                             minWidth: ri.scale(270),
-                            minHeight: ri.scale(270)
+                            minHeight: ri.scale(270),
                         }}
                     />
                 </Panel>

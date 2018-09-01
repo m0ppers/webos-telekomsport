@@ -4,6 +4,11 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { AuthActions } from 'app/actions';
 import { RootState } from 'app/reducers';
 import Input from '@enact/moonstone/Input';
+import Button from '@enact/moonstone/Button';
+import { Panel } from '@enact/moonstone/Panels';
+import Region from '@enact/moonstone/Region';
+
+import * as styles from './style.css';
 
 type StupidWebOSInputEvent = any;
 
@@ -68,14 +73,26 @@ export class Login extends React.Component<Login.Props, Login.State> {
             )
         }
         return (
-            <div>
-                {error}
-                <form>
-                    Email: <Input type="email" value={this.state.email} onChange={this.changeEmail.bind(this)}></Input>
-                    Password: <Input type="password" value={this.state.password} onChange={this.changePassword.bind(this)}></Input>
-                    <button onClick={this.login.bind(this)}>Login</button>
-                </form>
-            </div>
+            <Panel>
+                <Region title="Telekomsport Login">
+                    {error}
+                    <form>
+                        <div className={styles.row}>
+                            <label htmlFor="email">
+                                Email
+                            </label>
+                            <Input id="email" type="email" value={this.state.email} onChange={this.changeEmail.bind(this)}></Input>
+                        </div>
+                        <div className={styles.row}>
+                            <label htmlFor="password">
+                                Password
+                            </label>
+                            <Input type="password" value={this.state.password} onChange={this.changePassword.bind(this)}></Input>
+                        </div>
+                        <Button onClick={this.login.bind(this)}>Login</Button>
+                    </form>
+                </Region>
+            </Panel>
         )
     }
 };
