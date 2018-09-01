@@ -15,6 +15,13 @@ export namespace AuthActions {
         FAIL_LOGIN = 'FAIL_LOGIN',
         COMPLETE_LOGIN = 'COMPLETE_LOGIN',
     }
+
+    export const fail = (dispatch: Dispatch, e: string) => {
+        dispatch(failLogin(e));
+        if (history.location.pathname != '/login') {
+            history.push('/login');
+        }
+    }
     
     export const passwordLogin = (username: string, password: string) => {
         return (dispatch: Dispatch) => {
@@ -23,8 +30,8 @@ export namespace AuthActions {
             .then((payload: LoginPayload) => {
                 dispatch(completeLogin(payload));
                 history.push('/');
-            }, (e: Error) => {
-                dispatch(failLogin(e));
+            }, (e: string) => {
+                fail(dispatch, e);
             });
         }
     };
@@ -35,14 +42,14 @@ export namespace AuthActions {
             telekomClient('refreshAuth', [refreshToken])
             .then((payload: LoginPayload) => {
                 dispatch(completeLogin(payload));
-            }, (e: Error) => {
-                dispatch(failLogin(e));
+            }, (e: string) => {
+                fail(dispatch, e);
             });
         }
     };
 
     export const startLogin = createAction(Type.START_LOGIN);
-    export const failLogin = createAction<Error>(Type.FAIL_LOGIN);
+    export const failLogin = createAction<string>(Type.FAIL_LOGIN);
     export const completeLogin = createAction<LoginPayload>(Type.COMPLETE_LOGIN);
 }
 

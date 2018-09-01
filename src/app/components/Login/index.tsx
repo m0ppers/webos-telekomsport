@@ -10,6 +10,7 @@ type StupidWebOSInputEvent = any;
 export namespace Login {
     export interface Props {
         passwordLogin: Function,
+        error: string,
     }
 
     export interface State {
@@ -20,7 +21,9 @@ export namespace Login {
 
 @connect(
     (state: RootState): object => {
-      return {};
+      return {
+          error: state.auth.error,
+      };
     },
     (dispatch: Dispatch): Pick<Login.Props, 'passwordLogin'> => ({
         passwordLogin: bindActionCreators(AuthActions.passwordLogin, dispatch)
@@ -55,8 +58,18 @@ export class Login extends React.Component<Login.Props, Login.State> {
     }
 
     render() {
+        let error = null;
+        if (this.props.error) {
+            error = (
+                <div>
+                    <div>Fehler beim Login</div>
+                    <div>{this.props.error}</div>
+                </div>
+            )
+        }
         return (
             <div>
+                {error}
                 <form>
                     Email: <Input type="email" value={this.state.email} onChange={this.changeEmail.bind(this)}></Input>
                     Password: <Input type="password" value={this.state.password} onChange={this.changePassword.bind(this)}></Input>

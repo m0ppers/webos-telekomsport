@@ -29,6 +29,7 @@ export const authReducer = handleActions<RootState.Auth, any>({
         }
     },
     [AuthActions.Type.FAIL_LOGIN]: (state, action) => {
+        localStorage.removeItem('refreshToken');
         return {
             error: action.payload,
             authenticated: false,
