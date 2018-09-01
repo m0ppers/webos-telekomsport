@@ -77,8 +77,8 @@ export class Event extends React.Component<Event.Props, Event.State> {
         if (this.state.eventVideos) {
             element = (
                 <Panel>
-                    <Header title="Games" />
-                    {this.state.eventVideos.map(video => <Item key={video.id} onClick={this.clickItem.bind(this, video.id)}>{video.title}</Item>)}
+                    <Header title="Videos" />
+                    {this.state.eventVideos.map(video => <Item key={video.id + video.title} onClick={this.clickItem.bind(this, video.id)}>{video.title}</Item>)}
                 </Panel>
             )
         } else if (this.state.error) {
