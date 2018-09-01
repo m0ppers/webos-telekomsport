@@ -83,13 +83,13 @@ export class Home extends React.Component<Home.Props, Home.State> {
         } else if (this.state.program) {
             return (
                 <Panel>
-                    <Header title="Games" />
+                    <Header title="Spiele" />
                     <VirtualGridList
                         dataSize={this.state.program.entries.length}
                         itemRenderer={this.renderItem.bind(this)}
                         itemSize={{
                             minWidth: ri.scale(270),
-                            minHeight: ri.scale(270),
+                            minHeight: ri.scale(120),
                         }}
                     />
                 </Panel>
