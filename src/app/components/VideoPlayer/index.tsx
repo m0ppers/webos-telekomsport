@@ -51,13 +51,11 @@ export class VideoPlayer extends React.Component<VideoPlayer.Props> {
     render() {
         const className = style.video + " video-js";
         return (
-            <div>
                 <div data-vjs-player>
                     <video ref={this.video} className={className}>
                         <source src={ this.props.src } />
                     </video>
                 </div>
-            </div>
         )
     }
 }

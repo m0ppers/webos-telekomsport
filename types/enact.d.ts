@@ -7,6 +7,7 @@ declare module '@enact/moonstone/Item';
 declare module '@enact/moonstone/MoonstoneDecorator';
 declare module '@enact/moonstone/Panels';
 declare module '@enact/moonstone/Region';
+declare module '@enact/moonstone/VideoPlayer';
 declare module '@enact/ui/resolution';
 declare module '@enact/ui/VirtualList';
 declare module '@enact/ui/resolution';
