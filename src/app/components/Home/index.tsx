@@ -3,6 +3,12 @@ import { telekomClient } from 'app/services/telekomclient';
 import { Panel, Header } from '@enact/moonstone/Panels';
 import { Item } from '@enact/moonstone/Item';
 import { history } from 'app/utils/history';
+import { VirtualGridList } from '@enact/ui/VirtualList';
+import ri from '@enact/ui/resolution';
+
+const styles = require('style-loader!./peng.less');
+
+console.log('stylung', styles);
 
 export interface ProgramEntry {
     id: number;
@@ -59,9 +65,13 @@ export class Home extends React.Component<Home.Props, Home.State> {
         })
     }
 
-    renderItem(index: number, ...rest: any[]) {
+    renderItem(index: any, ...rest: any[]) {
+        if (!this.state.program) {
+            return;
+        }
+        const entry = this.state.program.entries[index.index];
         return (
-            <div></div>
+            <Item key={index.key} onClick={this.clickItem.bind(this, entry.id)}>{entry.title}</Item>
         )
     }
 
@@ -78,7 +88,14 @@ export class Home extends React.Component<Home.Props, Home.State> {
             return (
                 <Panel>
                     <Header title="Games" />
-                    {this.state.program.entries.map(entry => <Item key={entry.id} onClick={this.clickItem.bind(this, entry.id)}>{entry.title}</Item>)}
+                    <VirtualGridList
+                        dataSize={this.state.program.entries.length}
+                        itemRenderer={this.renderItem.bind(this)}
+                        itemSize={{
+                            minWidth: ri.scale(270),
+                            minHeight: ri.scale(270)
+                        }}
+                    />
                 </Panel>
             )
         } else {

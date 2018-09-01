@@ -48,18 +48,7 @@ module.exports = {
         ].filter(Boolean)
       },
       {
-        test: /\.less$/,
-        use: [{
-          loader: 'style-loader' // creates style nodes from JS strings
-        }, {
-          loader: 'css-loader' // translates CSS into CommonJS
-        }, {
-          loader: 'less-loader' // compiles Less to CSS
-        }]
-      },
-      // css
-      {
-        test: /\.css$/,
+        test: /\.(le|c)ss$/,
         use: [
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           {
@@ -88,7 +77,10 @@ module.exports = {
                 })
               ]
             }
-          }
+          },
+          {
+            loader: 'less-loader' // compiles Less to CSS
+          },
         ]
       },
       // static assets
